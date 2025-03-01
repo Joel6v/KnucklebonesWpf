@@ -21,3 +21,7 @@ If the same die is present in the opponent's row, the opponent's die(c) is moved
 ### End of the game
 
 The game is finished when a player has filled his field.
+
+## Credit
+
+Thanks to Alicja for creating the images for the dice and buttons :)
