@@ -67,7 +67,7 @@ namespace Knucklebones
 
         public Dice RollBtnClicked(string name)
         {
-            Dice newDice = new Dice(new Random().Next(1, 7));
+            Dice newDice = new Dice();
             if (name == "_0_BtnRoll" && PlayerLeft)
             {
                 ContainerLeft.Source = new BitmapImage(new Uri(newDice.GetPath(), UriKind.Absolute));

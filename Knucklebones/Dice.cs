@@ -16,9 +16,9 @@ namespace Knucklebones
             CurrentDice = currentDice;
         }
 
-        public Dice(int currentDice) //range from 0 to 6
+        public Dice()
         {
-            CurrentDice = (DiceName)currentDice;
+            CurrentDice = (DiceName)new Random().Next(1, 7);
         }
 
         public string GetPath()
