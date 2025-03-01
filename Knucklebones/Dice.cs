@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace Knucklebones
 
         public string GetPath()
         {
-            return @"F:\Schule\IMST23_4\M322\Knucklebones\" + PathsRelative[(int)CurrentDice];
+            return MainWindow.PathAbsolut + PathAbsolutDice + PathsRelative[(int)CurrentDice];
         }
 
         public int GetValue()
@@ -30,8 +31,23 @@ namespace Knucklebones
             return (int)CurrentDice;
         }
 
-        private static List<string> PathsRelative = new List<string>() { "\\Images\\Dice\\Empty_Dice.png", "\\Images\\Dice\\One_Dice.png",
-        "\\Images\\Dice\\Two_Dice.png", "\\Images\\Dice\\Three_Dice.png", "\\Images\\Dice\\Four_Dice.png", "\\Images\\Dice\\Five_Dice.png", "\\Images\\Dice\\Six_Dice.png"};
+        public static bool CheckFilesExist()
+        {
+            for (int i = 0; i < PathsRelative.Count; i++) 
+            {
+                if(!File.Exists(MainWindow.PathAbsolut + PathAbsolutDice + PathsRelative[i]))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        public const string PathAbsolutDice = @"\Images\Dice\";
+
+        private static List<string> PathsRelative = new List<string>() { "Empty_Dice.png", "One_Dice.png",
+        "Two_Dice.png", "Three_Dice.png", "Four_Dice.png", "Five_Dice.png", "Six_Dice.png"};
     }
 
     public enum DiceName

@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
@@ -19,6 +20,7 @@ namespace Knucklebones
     /// </summary>
     public partial class MainWindow : Window
     {
+        public static string PathAbsolut = AppContext.BaseDirectory;
         private FieldManager FieldManager;
         private PlayerManager PlayerManager;
         private bool Win = false;
@@ -27,7 +29,11 @@ namespace Knucklebones
         public MainWindow()
         {
             InitializeComponent();
-
+            if(!Dice.CheckFilesExist() || !Button.CheckFilesExist())
+            {
+                MessageBox.Show($"The image files were not found\nMain Path: {PathAbsolut}\nDice Path: {Dice.PathAbsolutDice}\nButtons Path:{Button.PathAbsolutButton}", "Files not found", MessageBoxButton.OK, MessageBoxImage.Error);
+                Environment.Exit(0);
+            }
             FieldManager = new FieldManager(_0_Score, _1_Score);
             SetStartImages();
             PlayerManager = new PlayerManager(_0_Container, _0_BtnRoll, _1_Container, _1_BtnRoll);
@@ -80,7 +86,14 @@ namespace Knucklebones
 
     public class Button
     {
-        public static string GreenButton = @"F:\Schule\IMST23_4\M322\Knucklebones\" + "\\Images\\Buttons\\Roll_Green.png";
-        public static string RedButton = @"F:\Schule\IMST23_4\M322\Knucklebones\" + "\\Images\\Buttons\\Roll_Red.png";
+        public static string GreenButton = MainWindow.PathAbsolut + PathAbsolutButton + "Roll_Green.png";
+        public static string RedButton = MainWindow.PathAbsolut + PathAbsolutButton + "Roll_Red.png";
+
+        public const string PathAbsolutButton = @"\Images\Buttons\";
+
+        public static bool CheckFilesExist()
+        {
+            return File.Exists(GreenButton) && File.Exists(RedButton);
+        }
     }
 }
