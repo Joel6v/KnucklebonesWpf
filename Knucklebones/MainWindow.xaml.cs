@@ -20,7 +20,7 @@ namespace Knucklebones
     /// </summary>
     public partial class MainWindow : Window
     {
-        public static string PathAbsolut = AppContext.BaseDirectory;
+        public static string PathAbsolut = AppDomain.CurrentDomain.BaseDirectory;
         private FieldManager FieldManager;
         private PlayerManager PlayerManager;
         private bool Win = false;
