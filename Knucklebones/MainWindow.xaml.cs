@@ -1,4 +1,5 @@
 ﻿using System.Drawing;
+using System.Reflection;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Windows;
@@ -18,77 +19,68 @@ namespace Knucklebones
     /// </summary>
     public partial class MainWindow : Window
     {
-        private Field[,,] Fields = new Field[2, 3, 3];
+        private FieldManager FieldManager;
+        private PlayerManager PlayerManager;
+        private bool Win = false;
+        private Dice CurrentDiceInContainer;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            FieldManager = new FieldManager(_0_Score, _1_Score);
             SetStartImages();
+            PlayerManager = new PlayerManager(_0_Container, _0_BtnRoll, _1_Container, _1_BtnRoll);
         }
 
         private void SetStartImages()
         {
-            Fields[0, 0, 0] = new Field();
-
-            for(int player = 0;  player < Fields.GetLength(0); player++)
+            for (int player = 0;  player < 2; player++)
             {
-                for(int x = 0;  x < Fields.GetLength(1); x++)
+                for(int x = 0;  x < 3; x++)
                 {
-                    for(int y = 0; y < Fields.GetLength(2); y++)
+                    for(int y = 0; y < 3; y++)
                     {
-                        Fields[player, ]
+                        FieldManager.Add((Image)FindName($"_{player}_{x}{y}"), player, x, y);
                     }
                 }
             }
         }
 
+        public void Roll_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            string name = (sender as Image).Name;
+            if (CurrentDiceInContainer == null && !Win)
+            {
+                CurrentDiceInContainer = PlayerManager.RollBtnClicked(name);
+            }
+        }
+
         public void Field_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if(sender is Image field)
+            string name = (sender as Image).Name;
+            if (PlayerManager.CorrectField(name) && CurrentDiceInContainer != null)
             {
-                //field.Name
+                if(FieldManager.FieldClicked(name, CurrentDiceInContainer))
+                {
+                    CurrentDiceInContainer = null;
+                    if (FieldManager.CheckIfWin(PlayerManager.PlayerLeft))
+                    {
+                        PlayerManager.Win();
+                        Win = true;
+                    }
+                    else
+                    {
+                        PlayerManager.ChangeToOtherPlayer();
+                    }
+                }              
             }
         }
     }
 
-    public class Field
+    public class Button
     {
-        public Image ImageElement { get; set; }
-
-        public string DiceOnFieldPath { get; set
-            {
-                base = value;
-                LoadDiceImage();
-            } }
-
-        public Field(Image imageElement) 
-        {
-            this.ImageElement = imageElement;
-            this.DiceOnFieldPath = Dice.None;
-        }
-
-        private void LoadDiceImage()
-        {
-            ImageElement.Source = new BitmapImage(new Uri(@"component/Images/down.png", UriKind.RelativeOrAbsolute));
-        }
-    }
-
-    public class Dice
-    {
-        public static string None = AppContext.BaseDirectory + "\\Images\\Dice\\Empty_Dice.png";
-        public static string One = AppContext.BaseDirectory + "\\Images\\Dice\\One_Dice.png";
-        public static string Two = AppContext.BaseDirectory + "\\Images\\Dice\\Two_Dice.png";
-        public static string Three = AppContext.BaseDirectory + "\\Images\\Dice\\Three_Dice.png";
-        public static string Four = AppContext.BaseDirectory + "\\Images\\Dice\\Four_Dice.png";
-        public static string Five = AppContext.BaseDirectory + "\\Images\\Dice\\Five_Dice.png";
-        public static string Six = AppContext.BaseDirectory + "\\Images\\Dice\\Six_Dice.png";
-    }
-
-    public enum Button
-    {
-        [EnumMember(Value = "\\Images\\Buttons\\Roll_Green.png")]
-        GreenButton,
-        [EnumMember(Value = "\\Images\\Buttons\\Roll_Red.png")]
-        RedButton
+        public static string GreenButton = @"F:\Schule\IMST23_4\M322\Knucklebones\" + "\\Images\\Buttons\\Roll_Green.png";
+        public static string RedButton = @"F:\Schule\IMST23_4\M322\Knucklebones\" + "\\Images\\Buttons\\Roll_Red.png";
     }
 }

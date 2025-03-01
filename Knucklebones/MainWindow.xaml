@@ -19,12 +19,8 @@
             <RowDefinition Height="100" />
             <RowDefinition Height="100" />
         </Grid.RowDefinitions>
-            <Image Grid.Column="0" Grid.Row="0" Name="_1_00" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80" Source="\Images\Dice\Four_Dice.png">
-                <Image.OpacityMask>
-                    <ImageBrush/>
-                </Image.OpacityMask>
-            </Image>
-            <Image Grid.Column="1" Grid.Row="0" Name="_1_10" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
+        <Image Grid.Column="0" Grid.Row="0" Name="_1_00" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
+        <Image Grid.Column="1" Grid.Row="0" Name="_1_10" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
         <Image Grid.Column="2" Grid.Row="0" Name="_1_20" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
         <Image Grid.Column="0" Grid.Row="1" Name="_1_01" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
         <Image Grid.Column="1" Grid.Row="1" Name="_1_11" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
@@ -45,7 +41,7 @@
                 <RowDefinition Height="100" />
                 <RowDefinition Height="100" />
             </Grid.RowDefinitions>
-            <Image Grid.Column="0" Grid.Row="0" Name="_0_00" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80" Source="/Images/Dice/Five_Dice.png"/>
+            <Image Grid.Column="0" Grid.Row="0" Name="_0_00" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
             <Image Grid.Column="1" Grid.Row="0" Name="_0_10" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
             <Image Grid.Column="2" Grid.Row="0" Name="_0_20" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
             <Image Grid.Column="0" Grid.Row="1" Name="_0_01" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
@@ -55,10 +51,12 @@
             <Image Grid.Column="1" Grid.Row="2" Name="_0_12" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
             <Image Grid.Column="2" Grid.Row="2" Name="_0_22" MouseDown="Field_MouseDown" Margin="10, 10" Height="80" Width="80"/>
         </Grid>
-        <Image Canvas.Left="30" Canvas.Bottom="100" Name="_0_Container" MouseDown="Field_MouseDown" Height="80" Width="80"/>
-        <Image Canvas.Left="30" Canvas.Bottom="50" Name="_0_Btn" MouseDown="Field_MouseDown" Height="40" Width="80" Source="\Images\Buttons\Roll_Green.png"/>
-        <Image Canvas.Right="30" Canvas.Top="100" Name="_1_Container" MouseDown="Field_MouseDown" Height="80" Width="80"/>
-        <Image Canvas.Right="30" Canvas.Top="50" Name="_1_Btn" MouseDown="Field_MouseDown" Height="40" Width="80" Source="\Images\Buttons\Roll_Red.png"/>
-        <Button Content="Button" Canvas.Left="30" Canvas.Top="160"/>
+        <Image Canvas.Left="30" Canvas.Bottom="100" Name="_0_Container" Height="80" Width="80"/>
+        <Image Canvas.Left="30" Canvas.Bottom="50" Name="_0_BtnRoll" MouseDown="Roll_MouseDown" Height="40" Width="80"/>
+        <Label Canvas.Left="30" Canvas.Bottom="185" Height="40" Width="50" Name="_0_Score" Content="0" FontSize="20"/>
+
+        <Image Canvas.Right="30" Canvas.Top="100" Name="_1_Container" Height="80" Width="80"/>
+        <Image Canvas.Right="30" Canvas.Top="50" Name="_1_BtnRoll" MouseDown="Roll_MouseDown" Height="40" Width="80" />
+        <Label Canvas.Right="60" Canvas.Top="185" Height="40" Width="50" Name="_1_Score" Content="0" FontSize="20"/>
     </Canvas>
 </Window>
